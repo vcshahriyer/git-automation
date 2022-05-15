@@ -105,6 +105,16 @@ const deleteBranch = (b_name, force) => {
 	else run(`branch -d ${b_name}`);
 };
 
+const pullRequest = (remote, branch = null) => {
+	if (!branch) branch = getActiveBranchName();
+	const { userName, repoName } = gitRemoteInfo();
+	url = `https://github.com/${userName}/${repoName}/pull/new/${branch}`;
+	push(remote, branch);
+	if (b_name !== 'master' || b_name !== 'main') {
+		open(url);
+	}
+};
+
 const pruneRemote = (force = false, remote) => {
 	localBranches = getAllLocalBranchName();
 
@@ -153,18 +163,15 @@ const sync = remote => {
 	pull(remote);
 };
 const newBranchPushPR = remote => {
-	const { userName, repoName } = gitRemoteInfo();
 	const b_name = readlineSync.question(
 		'Type in the name of the branch you want to make: '
 	);
-	url = `https://github.com/${userName}/${repoName}/pull/new/${b_name}`;
 	branch(b_name);
 	if (getIfChanged()) {
 		add();
 		commit();
 	}
-	push(remote, b_name);
-	open(url);
+	pullRequest(remote, b_name);
 };
 const normalPushPR = remote => {
 	b_name = getActiveBranchName();
@@ -177,19 +184,12 @@ const normalPushPR = remote => {
 		open(url);
 	}
 };
-const justPullRequest = remote => {
-	b_name = getActiveBranchName();
-	const { userName, repoName } = gitRemoteInfo();
-	url = `https://github.com/${userName}/${repoName}/pull/new/${b_name}`;
-	push(remote, b_name);
-	if (b_name !== 'master' || b_name !== 'main') {
-		open(url);
-	}
-};
 const normalPush = (remote, b_name = null) => {
-	add();
-	commit();
+	if (getIfChanged()) {
+		add();
+		commit();
+	}
 	push(remote, b_name);
 };
 
-module.exports = { pruneRemote, newBranchPushPR, pruneLocal };
+module.exports = { pruneRemote, newBranchPushPR, pruneLocal, normalPush };
