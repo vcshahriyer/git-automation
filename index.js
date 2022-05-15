@@ -31,8 +31,8 @@ const { clear, debug, force, pr, branch } = flags;
 				automate.newBranchPushPR(remote);
 				break;
 			case 'push':
-				automate.normalPush(remote, branch ?? null);
-				pr && automate.pullRequest(remote, branch ?? null);
+				automate.normalPush(remote, branch || null);
+				pr && automate.pullRequest(remote, branch || null);
 				break;
 			case 'pr':
 				automate.pullRequest(remote);

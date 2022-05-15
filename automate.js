@@ -187,7 +187,7 @@ const normalPushPR = remote => {
 	}
 };
 const normalPush = (remote, b_name = null) => {
-	console.log('from automate: ', b_name);
+	console.log('from automate: ', b_name === null);
 	if (getIfChanged()) {
 		add();
 		commit();
