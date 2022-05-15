@@ -15,7 +15,7 @@ const automate = require('./automate');
 const remote = 'origin';
 const input = cli.input;
 const flags = cli.flags;
-const { clear, debug, force, pr, branch } = flags;
+const { clear, debug, force, branch } = flags;
 
 (async () => {
 	init({ clear });

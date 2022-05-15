@@ -8,11 +8,6 @@ const flags = {
 		alias: `c`,
 		desc: `Clear the console`
 	},
-	pr: {
-		type: `boolean`,
-		default: false,
-		desc: `Creat pull request.`
-	},
 	branch: {
 		type: `string`,
 		default: '',
