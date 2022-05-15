@@ -35,7 +35,7 @@ const { clear, debug, force, pr, branch } = flags;
 				pr && automate.pullRequest(branch || null);
 				break;
 			case 'pr':
-				automate.pullRequest(remote);
+				automate.pullRequest(branch || null);
 				break;
 			case 'help':
 				cli.showHelp(0);
