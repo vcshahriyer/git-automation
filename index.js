@@ -30,6 +30,12 @@ const { clear, debug } = flags;
 			case 'nbpr':
 				automate.newBranchPushPR(remote);
 				break;
+			case 'push':
+				automate.normalPush(remote);
+				break;
+			case 'pr':
+				automate.pullRequest(remote);
+				break;
 			case 'help':
 				cli.showHelp(0);
 				break;
