@@ -110,7 +110,7 @@ const pullRequest = (remote, branch = null) => {
 	const { userName, repoName } = gitRemoteInfo();
 	url = `https://github.com/${userName}/${repoName}/pull/new/${branch}`;
 	push(remote, branch);
-	if (b_name !== 'master' || b_name !== 'main') {
+	if (branch !== 'master' || branch !== 'main') {
 		open(url);
 	}
 };
