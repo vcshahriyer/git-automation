@@ -4,9 +4,20 @@ const meowHelp = require('cli-meow-help');
 const flags = {
 	clear: {
 		type: `boolean`,
-		default: true,
+		default: false,
 		alias: `c`,
 		desc: `Clear the console`
+	},
+	pr: {
+		type: `boolean`,
+		default: false,
+		desc: `Creat pull request.`
+	},
+	branch: {
+		type: `string`,
+		default: '',
+		alias: `b`,
+		desc: `Branch name (** without-space)`
 	},
 	noClear: {
 		type: `boolean`,
@@ -23,6 +34,12 @@ const flags = {
 		type: `boolean`,
 		alias: `v`,
 		desc: `Print CLI version`
+	},
+	force: {
+		type: `boolean`,
+		default: false,
+		alias: `f`,
+		desc: `Force delete branch`
 	}
 };
 
@@ -31,8 +48,8 @@ const commands = {
 	'prune-delete': { desc: 'Prune and delete local branches.' },
 	'prune-sync': { desc: 'Delete local branches that are not in remote.' },
 	nbpr: { desc: `Push new branch and make pull request.` },
-	push: { desc: `Push current branch or with (--b="new-branch-name)".` },
-	pr: { desc: `Create a pull request options (--b="new-branch-name").` }
+	push: { desc: `Push current branch or with (--b="branch-name)".` },
+	pr: { desc: `Create a pull request options (--b="branch-name").` }
 };
 
 const helpText = meowHelp({
