@@ -27,7 +27,9 @@ const flags = {
 };
 
 const commands = {
-	help: { desc: `Print help info` }
+	help: { desc: `Print help info` },
+	'prune-delete': { desc: 'Prune and delete local branches' },
+	nbpr: { desc: `Print help info` }
 };
 
 const helpText = meowHelp({
