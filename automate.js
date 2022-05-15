@@ -130,14 +130,15 @@ const pruneRemote = (force = false, remote) => {
 		return;
 	}
 	const parse = output.split(' ');
-	console.log('expected: ', output);
-	console.log('parsed: ', parse);
 	for (pruned of parse) {
 		if (pruned.includes(`${remote}/`)) {
-			const [origin, branch] = str.split('/');
-			if (localBranches.includes(branch.trim())) {
-				console.log(`Deleted Branch : ${branch}`);
-				deleteBranch(branch);
+			console.log(pruned);
+			const [origin, branch] = pruned.split('/');
+			const b_trimmed = branch.trim();
+			console.log('after split', origin, b_trimmed);
+			if (localBranches.includes(b_trimmed)) {
+				console.log(`Deleted Branch : ${b_trimmed}`);
+				deleteBranch(b_trimmed);
 			}
 		}
 	}
