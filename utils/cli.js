@@ -31,7 +31,8 @@ const commands = {
 	'prune-delete': { desc: 'Prune and delete local branches.' },
 	'prune-sync': { desc: 'Delete local branches that are not in remote.' },
 	nbpr: { desc: `Push new branch and make pull request.` },
-	push: { desc: `Push current branch or with --b="new-branch-name".` }
+	push: { desc: `Push current branch or with (--b="new-branch-name)".` },
+	pr: { desc: `Create a pull request options (--b="new-branch-name").` }
 };
 
 const helpText = meowHelp({

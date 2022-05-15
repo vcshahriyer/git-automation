@@ -192,4 +192,10 @@ const normalPush = (remote, b_name = null) => {
 	push(remote, b_name);
 };
 
-module.exports = { pruneRemote, newBranchPushPR, pruneLocal, normalPush };
+module.exports = {
+	pruneRemote,
+	newBranchPushPR,
+	pruneLocal,
+	normalPush,
+	pullRequest
+};
