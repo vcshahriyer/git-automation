@@ -119,6 +119,7 @@ const pruneRemote = (force = false, remote) => {
 	localBranches = getAllLocalBranchName();
 
 	const cmd = run(`remote prune ${remote}`);
+	console.log(cmd);
 	if (!cmd.stdout) {
 		console.log(
 			chalk
