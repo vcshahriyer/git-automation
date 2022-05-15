@@ -105,9 +105,8 @@ const deleteBranch = (b_name, force) => {
 	else run(`branch -d ${b_name}`);
 };
 
-const pruneRemote = async (force = false, remote) => {
-	fetch(remote);
-	localBranches = await getAllLocalBranchName();
+const pruneRemote = (force = false, remote) => {
+	localBranches = getAllLocalBranchName();
 
 	const cmd = run(`remote prune ${remote}`);
 	if (!cmd.stdout) {
@@ -133,9 +132,9 @@ const pruneRemote = async (force = false, remote) => {
 };
 
 const pruneLocal = async (force = false, remote) => {
-	fetch(remote);
+	// fetch(remote);
 	localBranches = getAllLocalBranchName();
-	run(`remote prune ${remote}`);
+	// run(`remote prune ${remote}`);
 	remoteBranches = getAllRemoteBranchName(remote);
 	let dirty = false;
 	for (br of localBranches) {
@@ -171,11 +170,11 @@ const newBranchPushPR = remote => {
 		'Type in the name of the branch you want to make: '
 	);
 	url = `https://github.com/${userName}/${repoName}/pull/new/${b_name}`;
+	branch(b_name);
 	if (getIfChanged()) {
 		add();
 		commit();
 	}
-	branch(b_name);
 	push(remote, b_name);
 	open(url);
 };
