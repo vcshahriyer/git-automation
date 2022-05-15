@@ -32,7 +32,7 @@ const { clear, debug, force, pr, branch } = flags;
 				break;
 			case 'push':
 				automate.normalPush(remote, branch || null);
-				pr && automate.pullRequest(remote, branch || null);
+				pr && automate.pullRequest(branch || null);
 				break;
 			case 'pr':
 				automate.pullRequest(remote);

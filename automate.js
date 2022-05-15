@@ -106,11 +106,10 @@ const deleteBranch = (b_name, force) => {
 	else run(`branch -d ${b_name}`);
 };
 
-const pullRequest = (remote, branch = null) => {
+const pullRequest = (branch = null) => {
 	if (!branch) branch = getActiveBranchName();
 	const { userName, repoName } = gitRemoteInfo();
 	url = `https://github.com/${userName}/${repoName}/pull/new/${branch}`;
-	push(remote, branch);
 	if (branch !== 'master' || branch !== 'main') {
 		open(url);
 	}
@@ -173,7 +172,8 @@ const newBranchPushPR = remote => {
 		add();
 		commit();
 	}
-	pullRequest(remote, b_name);
+	push(remote);
+	pullRequest(b_name);
 };
 const normalPushPR = remote => {
 	b_name = getActiveBranchName();
@@ -187,7 +187,6 @@ const normalPushPR = remote => {
 	}
 };
 const normalPush = (remote, b_name = null) => {
-	console.log('from automate: ', b_name === null);
 	if (getIfChanged()) {
 		add();
 		commit();
