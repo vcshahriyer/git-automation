@@ -37,7 +37,8 @@ const getAllLocalBranchName = () => {
 		if (item === '*' || item === '') {
 			continue;
 		}
-		branches.push(item.trim());
+		const name = item.replace(/\*/g, '');
+		branches.push(name.trim());
 	}
 	return branches;
 };
@@ -132,10 +133,8 @@ const pruneRemote = (force = false, remote) => {
 	const parse = output.split(' ');
 	for (pruned of parse) {
 		if (pruned.includes(`${remote}/`)) {
-			console.log(pruned);
 			const [origin, branch] = pruned.split('/');
 			const b_trimmed = branch.trim();
-			console.log('after split', origin, b_trimmed);
 			if (localBranches.includes(b_trimmed)) {
 				console.log(`Deleted Branch : ${b_trimmed}`);
 				deleteBranch(b_trimmed);
