@@ -119,26 +119,28 @@ const pruneRemote = (force = false, remote) => {
 	localBranches = getAllLocalBranchName();
 
 	const cmd = run(`remote prune ${remote}`);
-	if (!cmd.stdout) {
+	const output = cmd.toString();
+	if (!cmd.toString()) {
 		console.log(
 			chalk
 				.bgHex('#36bb09')
 				.hex('#000')
 				.bold(' You are all Synced with remote! ')
 		);
+		return;
 	}
-	cmd.stdout?.on('data', output => {
-		const parse = output.split(' ');
-		for (pruned of parse) {
-			if (pruned.includes(`${remote}/`)) {
-				const { origin, branch } = pruned.split('/');
-				if (localBranches.includes(branch)) {
-					console.log(`Deleted Branch : ${branch}`);
-					deleteBranch(branch);
-				}
+	const parse = output.split(' ');
+	console.log('expected: ', output);
+	console.log('parsed: ', parse);
+	for (pruned of parse) {
+		if (pruned.includes(`${remote}/`)) {
+			const [origin, branch] = str.split('/');
+			if (localBranches.includes(branch.trim())) {
+				console.log(`Deleted Branch : ${branch}`);
+				deleteBranch(branch);
 			}
 		}
-	});
+	}
 };
 
 const pruneLocal = async (force = false, remote) => {
