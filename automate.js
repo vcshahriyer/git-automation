@@ -132,9 +132,7 @@ const pruneRemote = (force = false, remote) => {
 };
 
 const pruneLocal = async (force = false, remote) => {
-	// fetch(remote);
 	localBranches = getAllLocalBranchName();
-	// run(`remote prune ${remote}`);
 	remoteBranches = getAllRemoteBranchName(remote);
 	let dirty = false;
 	for (br of localBranches) {
@@ -153,16 +151,6 @@ const pruneLocal = async (force = false, remote) => {
 const sync = remote => {
 	fetch(remote);
 	pull(remote);
-};
-const justNewBranchPushPR = remote => {
-	const { userName, repoName } = gitRemoteInfo();
-	const b_name = readlineSync.question(
-		'Type in the name of the branch you want to make: '
-	);
-	url = `https://github.com/${userName}/${repoName}/pull/new/${b_name}`;
-	branch(b_name);
-	push(remote, b_name);
-	open(url);
 };
 const newBranchPushPR = remote => {
 	const { userName, repoName } = gitRemoteInfo();
