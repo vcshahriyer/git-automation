@@ -27,7 +27,10 @@ const flags = {
 };
 
 const commands = {
-	help: { desc: `Print help info` }
+	help: { desc: `Print help info` },
+	'prune-delete': { desc: 'Prune and delete local branches.' },
+	'prune-sync': { desc: 'Delete local branches that are not in remote.' },
+	nbpr: { desc: `Push new branch and make pull request.` }
 };
 
 const helpText = meowHelp({
