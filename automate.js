@@ -129,6 +129,7 @@ const pruneRemote = (force = false, remote) => {
 		);
 		return;
 	}
+	console.log('local branches: ', localBranches);
 	const parse = output.split(' ');
 	for (pruned of parse) {
 		if (pruned.includes(`${remote}/`)) {
