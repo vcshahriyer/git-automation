@@ -23,7 +23,7 @@ const gitRemoteInfo = () => {
 const getActiveBranchName = () => {
 	const cmd = run('branch');
 	const output = cmd.toString();
-	const parse = /(\*)( [\w]+)/g.exec(output);
+	const parse = /(\*)( .+)/g.exec(output);
 	const branch = parse[2];
 	return branch.trim();
 };
