@@ -1,6 +1,7 @@
 const { execSync } = require('child_process');
 var readlineSync = require('readline-sync');
 const open = require('open');
+const chalk = require('chalk');
 
 const run = arg => {
 	try {
@@ -109,8 +110,15 @@ const pruneRemote = async (force = false, remote) => {
 	localBranches = await getAllLocalBranchName();
 
 	const cmd = run(`remote prune ${remote}`);
-	console.log(cmd.stdout);
-	cmd.stdout.on('data', output => {
+	if (!cmd.stdout) {
+		console.log(
+			chalk
+				.bgHex('#36bb09')
+				.hex('#000')
+				.bold(' You are all Synced with remote! ')
+		);
+	}
+	cmd.stdout?.on('data', output => {
 		const parse = output.split(' ');
 		for (pruned of parse) {
 			if (pruned.includes(`${remote}/`)) {
@@ -129,12 +137,18 @@ const pruneLocal = async (force = false, remote) => {
 	localBranches = getAllLocalBranchName();
 	run(`remote prune ${remote}`);
 	remoteBranches = getAllRemoteBranchName(remote);
+	let dirty = false;
 	for (br of localBranches) {
 		if (!remoteBranches.includes(br)) {
+			dirty = true;
 			console.log(`Deleted Branch: ${br}`);
 			deleteBranch(br);
 		}
 	}
+	!dirty &&
+		console.log(
+			chalk.bgHex('#36bb09').hex('#000').bold(' You are all Synced! ')
+		);
 };
 
 const sync = remote => {
@@ -190,10 +204,5 @@ const normalPush = (remote, b_name = null) => {
 	commit();
 	push(remote, b_name);
 };
-// push('origin')
-// justNewBranchPushPR('origin');
-// pruneLocal(false, 'origin')
-// newBranchPushPR('origin')
-// normalPushPR("origin")
-getIfChanged('origin');
-module.exports = { pruneRemote, newBranchPushPR };
+
+module.exports = { pruneRemote, newBranchPushPR, pruneLocal };

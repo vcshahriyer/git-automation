@@ -24,8 +24,11 @@ const { clear, debug } = flags;
 			case 'prune-delete':
 				automate.pruneRemote(false, remote);
 				break;
+			case 'prune-sync':
+				automate.pruneLocal(false, remote);
+				break;
 			case 'nbpr':
-				automate.newBranchPushPR(false, remote);
+				automate.newBranchPushPR(remote);
 				break;
 			case 'help':
 				cli.showHelp(0);
