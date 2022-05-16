@@ -15,7 +15,7 @@ const automate = require('./automate');
 const remote = 'origin';
 const input = cli.input;
 const flags = cli.flags;
-const { clear, debug, force, branch } = flags;
+const { clear, debug, force, branch, backTo } = flags;
 
 (async () => {
 	init({ clear });
@@ -36,14 +36,17 @@ const { clear, debug, force, branch } = flags;
 			case 'pr':
 				automate.pullRequest(branch || null);
 				break;
+			case 'pll':
+				automate.pull(branch || null);
+				break;
 			case 'help':
 				cli.showHelp(0);
 				break;
-
 			default:
 				cli.showHelp(0);
 				break;
 		}
 	});
+	backTo && automate.checkout(backTo);
 	debug && log(flags);
 })();

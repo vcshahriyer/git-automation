@@ -79,8 +79,14 @@ const branch = name => {
 	return run(`checkout -b ${name}`);
 };
 
-const fetch = remote => {
-	run(`fetch ${remote}`);
+const checkout = branch => {
+	if (!branch) {
+		console.log(
+			chalk.bgRedBright.hex('#000').bold(` No branch name provided ! `)
+		);
+		return;
+	}
+	run(`checkout ${branch}`);
 };
 
 const pull = (remote, b_name = null) => {
@@ -165,10 +171,6 @@ const pruneLocal = async (force = false, remote) => {
 		);
 };
 
-const sync = remote => {
-	fetch(remote);
-	pull(remote);
-};
 const newBranchPushPR = remote => {
 	const b_name = readlineSync.question(
 		'Type in the name of the branch you want to make: '
@@ -192,5 +194,7 @@ module.exports = {
 	newBranchPushPR,
 	pruneLocal,
 	normalPush,
-	pullRequest
+	pullRequest,
+	checkout,
+	pull
 };
