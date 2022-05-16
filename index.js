@@ -21,10 +21,10 @@ const { clear, debug, force, branch } = flags;
 	init({ clear });
 	input.forEach(command => {
 		switch (command) {
-			case 'prune-delete':
+			case 'pnd':
 				automate.pruneRemote(force, remote);
 				break;
-			case 'prune-sync':
+			case 'pnc':
 				automate.pruneLocal(force, remote);
 				break;
 			case 'nbpr':

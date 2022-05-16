@@ -110,8 +110,14 @@ const pullRequest = (branch = null) => {
 	if (!branch) branch = getActiveBranchName();
 	const { userName, repoName } = gitRemoteInfo();
 	url = `https://github.com/${userName}/${repoName}/pull/new/${branch}`;
-	if (branch !== 'master' || branch !== 'main') {
+	if (branch !== 'master' && branch !== 'main') {
 		open(url);
+	} else {
+		console.log(
+			chalk.bgRed
+				.hex('#000')
+				.bold(` You are currently in ${branch} branch ! `)
+		);
 	}
 };
 
@@ -174,17 +180,6 @@ const newBranchPushPR = remote => {
 	}
 	push(remote);
 	pullRequest(b_name);
-};
-const normalPushPR = remote => {
-	b_name = getActiveBranchName();
-	const { userName, repoName } = gitRemoteInfo();
-	url = `https://github.com/${userName}/${repoName}/pull/new/${b_name}`;
-	add();
-	commit();
-	push(remote, b_name);
-	if (b_name !== 'master' || b_name !== 'main') {
-		open(url);
-	}
 };
 const normalPush = (remote, b_name = null) => {
 	if (getIfChanged()) {
