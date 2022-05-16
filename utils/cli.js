@@ -8,6 +8,11 @@ const flags = {
 		alias: `c`,
 		desc: `Clear the console`
 	},
+	backTo: {
+		type: `string`,
+		default: '',
+		desc: `Branch name (** without-space)`
+	},
 	branch: {
 		type: `string`,
 		default: '',
@@ -41,12 +46,13 @@ const flags = {
 const commands = {
 	help: { desc: `Print help info` },
 	pnd: { desc: 'Prune and delete local branches.' },
-	pnc: { desc: 'Delete local branches that are not in remote.' },
+	pnc: { desc: 'Prune and Sync (Delete pruned branches from local.' },
 	nb: { desc: `Create new branch` },
 	p: { desc: `Push current branch or with (--b="branch-name)".` },
 	pr: {
 		desc: `Create a pull request of current branch or with (--b="branch-name").`
-	}
+	},
+	pll: { desc: `Pull from current branch or with (--b="branch-name)".` }
 };
 
 const helpText = meowHelp({
