@@ -178,8 +178,6 @@ const newBranchPushPR = remote => {
 		add();
 		commit();
 	}
-	push(remote);
-	pullRequest(b_name);
 };
 const normalPush = (remote, b_name = null) => {
 	if (getIfChanged()) {
