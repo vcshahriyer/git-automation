@@ -40,11 +40,11 @@ const flags = {
 
 const commands = {
 	help: { desc: `Print help info` },
-	'prune-delete': { desc: 'Prune and delete local branches.' },
-	'prune-sync': { desc: 'Delete local branches that are not in remote.' },
+	pnd: { desc: 'Prune and delete local branches.' },
+	pnc: { desc: 'Delete local branches that are not in remote.' },
 	nbpr: { desc: `Push new branch and make pull request.` },
 	push: { desc: `Push current branch or with (--b="branch-name)".` },
-	pr: { desc: `Create a pull request options (--b="branch-name").` }
+	pr: { desc: `Create a pull request optional (--b="branch-name").` }
 };
 
 const helpText = meowHelp({
