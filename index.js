@@ -27,10 +27,10 @@ const { clear, debug, force, branch } = flags;
 			case 'pnc':
 				automate.pruneLocal(force, remote);
 				break;
-			case 'nbpr':
+			case 'nb':
 				automate.newBranchPushPR(remote);
 				break;
-			case 'push':
+			case 'p':
 				automate.normalPush(remote, branch || null);
 				break;
 			case 'pr':
