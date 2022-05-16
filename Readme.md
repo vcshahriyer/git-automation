@@ -1,4 +1,4 @@
-# GitHub Automation Script
+# GitHub Automation CLI Tool
 
 This is a Node CLI tool to automate The boring stuff 🚀.
 
@@ -20,6 +20,6 @@ $ autogit help
 
 ## Upcoming
 
-Upcoming feature plan and teaser :
+> Upcoming feature plan and teasers :
 
 🔲 Stash related feature.
