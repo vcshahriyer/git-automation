@@ -20,6 +20,6 @@ $ autogit help
 
 ## Upcoming
 
-Commands without changes (Clean working Dir) :
+Upcoming feature plan and teaser :
 
 🔲 Stash related feature.
