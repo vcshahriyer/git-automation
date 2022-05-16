@@ -1,5 +1,5 @@
 {
-	"name": "git-automation",
+	"name": "@shahriyer/autogit",
 	"description": "Automate your git workflow with a single script.",
 	"version": "1.0.0",
 	"license": "MIT",
@@ -7,11 +7,7 @@
 		"git-automation": "index.js",
 		"autogit": "index.js"
 	},
-	"author": {
-		"name": "Raghib Shahriyer",
-		"email": "vcshahriyer@gmail.com",
-		"url": "https://ingeniousinside.com/vcshahriyer"
-	},
+	"author": "Raghib Shahriyer <vcshahriyer@gmail.com> (https://ingeniousinside.com/vcshahriyer)",
 	"keywords": [
 		"git-automation",
 		"autogit",
@@ -37,5 +33,14 @@
 	},
 	"devDependencies": {
 		"prettier": "^2.6.2"
-	}
+	},
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vcshahriyer/git-automation.git"
+	},
+	"bugs": {
+		"url": "https://github.com/vcshahriyer/git-automation/issues"
+	},
+	"homepage": "https://github.com/vcshahriyer/git-automation#readme"
 }
