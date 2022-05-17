@@ -6,8 +6,10 @@ This is a Node CLI tool to automate The boring stuff 🚀.
 
 ## Installation
 
+> Install it globally and use across repositories with ease
+
 ```
-npm i @shahriyer/autogit
+npm i -g @shahriyer/autogit
 ```
 
 ## Usage
@@ -17,6 +19,14 @@ $ autogit help
 ```
 
 ![Usage](/assets/usage.png)
+
+## **You can chain commands**
+
+```
+$ autogit nb p pr --backTo=main
+```
+
+This will Create new branch ➡️ push ➡️ Open a Pull request ➡️ Checkout to `main` branch
 
 ## Upcoming
 
