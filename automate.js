@@ -197,24 +197,27 @@ const pruneLocal = (force = false, remote) => {
 };
 
 const newBranch = async () => {
-	const b_name = readlineSync.question(
-		'Type in the name of the branch you want to make: '
-	);
-	branch(b_name);
-	if (getIfChanged()) {
-		add();
-		await commit();
-		console.log('Await in new branch.');
-	}
+	return new Promise(async (resolve, _) => {
+		const b_name = readlineSync.question(
+			'Type in the name of the branch you want to make: '
+		);
+		branch(b_name);
+		if (getIfChanged()) {
+			add();
+			await commit();
+		}
+		return resolve(true);
+	});
 };
 const normalPush = async (remote, b_name = null) => {
-	if (getIfChanged()) {
-		add();
-		await commit();
-		console.log('Await in normal push.');
-	}
-	await push(remote, b_name);
-	console.log('Await in normal push.');
+	return new Promise(async (resolve, _) => {
+		if (getIfChanged()) {
+			add();
+			await commit();
+		}
+		await push(remote, b_name);
+		return resolve(true);
+	});
 };
 
 module.exports = {
