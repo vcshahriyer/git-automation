@@ -17,10 +17,6 @@ const input = cli.input;
 const flags = cli.flags;
 const { clear, debug, force, branch, backTo } = flags;
 
-function timeout(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 (async () => {
 	init({ clear });
 
@@ -35,20 +31,15 @@ function timeout(ms) {
 				break;
 			case 'nb':
 				await automate.newBranch(remote);
-				// await timeout(3000);
-				console.log('New branch');
 				break;
 			case 'p':
 				await automate.normalPush(remote, branch || null);
-				// await timeout(3000);
-				console.log('From push');
 				break;
 			case 'pr':
 				automate.pullRequest(branch || null);
-				console.log('From pr');
 				break;
 			case 'pll':
-				automate.pull(remote, branch || null);
+				await automate.pull(remote, branch || null);
 				break;
 			case 'help':
 				cli.showHelp(0);
@@ -58,7 +49,6 @@ function timeout(ms) {
 				break;
 		}
 	}, Promise.resolve());
-	console.log('Even Outside !');
 	backTo && automate.checkout(backTo);
 	debug && log(flags);
 })();
