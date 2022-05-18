@@ -76,7 +76,7 @@ const getAllRemoteBranchName = remote => {
 	return remoteBranches;
 };
 
-const getIfChanged = remote => {
+const getIfChanged = () => {
 	const cmd = run('status --porcelain');
 	const output = cmd.toString();
 	return !!output;
@@ -88,14 +88,9 @@ const add = () => {
 
 const commit = async message => {
 	return new Promise(async (resolve, _) => {
-		if (!message) {
-			const answer = readlineSync.question(
-				'Type in your commit message: '
-			);
-			await asyncRun(`commit -m "${answer}"`);
-		} else {
-			await asyncRun(`commit -m "${message}"`);
-		}
+		if (!message)
+			message = readlineSync.question('Type in your commit message: ');
+		await asyncRun(`commit -m "${message}"`);
 		return resolve(true);
 	});
 };
@@ -114,22 +109,17 @@ const checkout = branch => {
 	run(`checkout ${branch}`);
 };
 
-const pull = async (remote, b_name = null) => {
-	if (!b_name) {
-		const branchName = getActiveBranchName();
+const pull = async (remote, branchName = null) => {
+	return new Promise(async (resolve, _) => {
+		if (!branchName) branchName = getActiveBranchName();
 		await asyncRun(`pull ${remote} ${branchName}`);
-	} else {
-		await asyncRun(`pull ${remote} ${b_name}`);
-	}
+		return resolve(true);
+	});
 };
 
-const push = async (remote, b_name = null) => {
-	if (!b_name) {
-		const branchName = getActiveBranchName();
-		await asyncRun(`push -u ${remote} ${branchName}`);
-	} else {
-		await asyncRun(`push -u ${remote} ${b_name}`);
-	}
+const push = async (remote, branchName = null) => {
+	if (!branchName) branchName = getActiveBranchName();
+	await asyncRun(`push -u ${remote} ${branchName}`);
 };
 
 const deleteBranch = (b_name, force) => {
@@ -169,11 +159,11 @@ const pruneRemote = (force = false, remote) => {
 	const parse = output.split(' ');
 	for (pruned of parse) {
 		if (pruned.includes(`${remote}/`)) {
-			const [origin, branch] = pruned.split('/');
+			const [_origin, branch] = pruned.split('/');
 			const b_trimmed = branch.trim();
 			if (localBranches.includes(b_trimmed)) {
 				console.log(`Deleted Branch : ${b_trimmed}`);
-				deleteBranch(b_trimmed);
+				deleteBranch(b_trimmed, force);
 			}
 		}
 	}
@@ -187,7 +177,7 @@ const pruneLocal = (force = false, remote) => {
 		if (!remoteBranches.includes(br)) {
 			dirty = true;
 			console.log(`Deleted Branch: ${br}`);
-			deleteBranch(br);
+			deleteBranch(br, force);
 		}
 	}
 	!dirty &&
