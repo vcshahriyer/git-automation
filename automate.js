@@ -1,4 +1,4 @@
-const { execSync } = require('child_process');
+const { execSync, spawn } = require('child_process');
 var readlineSync = require('readline-sync');
 const open = require('open');
 const chalk = require('chalk');
@@ -9,6 +9,26 @@ const run = arg => {
 	} catch (err) {
 		return err;
 	}
+};
+const asyncRun = arg => {
+	return new Promise((resolve, reject) => {
+		try {
+			const exc = spawn(`git ${arg}`, { shell: true });
+			exc.stdout.on('data', data => {
+				console.log(data.toString());
+			});
+			exc.on('error', code => {
+				console.log(
+					chalk.bgRedBright.hex('#000').bold(`Error: ${code}`)
+				);
+			});
+			exc.on('close', code => {
+				resolve(true);
+			});
+		} catch (err) {
+			reject(err);
+		}
+	});
 };
 
 const gitRemoteInfo = () => {
@@ -66,12 +86,14 @@ const add = () => {
 	run('add -A');
 };
 
-const commit = message => {
+const commit = async message => {
 	if (!message) {
 		const answer = readlineSync.question('Type in your commit message: ');
-		run(`commit -m "${answer}"`);
+		// run(`commit -m "${answer}"`);
+		await asyncRun(`commit -m "${answer}"`);
 	} else {
-		run(`commit -m "${message}"`);
+		// run(`commit -m "${message}"`);
+		await asyncRun(`commit -m "${message}"`);
 	}
 };
 
@@ -89,21 +111,21 @@ const checkout = branch => {
 	run(`checkout ${branch}`);
 };
 
-const pull = (remote, b_name = null) => {
+const pull = async (remote, b_name = null) => {
 	if (!b_name) {
 		const branchName = getActiveBranchName();
-		run(`pull ${remote} ${branchName}`);
+		await asyncRun(`pull ${remote} ${branchName}`);
 	} else {
-		run(`pull ${remote} ${b_name}`);
+		await asyncRun(`pull ${remote} ${b_name}`);
 	}
 };
 
-const push = (remote, b_name = null) => {
+const push = async (remote, b_name = null) => {
 	if (!b_name) {
 		const branchName = getActiveBranchName();
-		run(`push -u ${remote} ${branchName}`);
+		await asyncRun(`push -u ${remote} ${branchName}`);
 	} else {
-		run(`push -u ${remote} ${b_name}`);
+		await asyncRun(`push -u ${remote} ${b_name}`);
 	}
 };
 
