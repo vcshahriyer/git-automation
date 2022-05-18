@@ -10,7 +10,7 @@ const run = arg => {
 		return err;
 	}
 };
-const asyncRun = async arg => {
+const asyncRun = arg => {
 	return new Promise((resolve, reject) => {
 		try {
 			const exc = spawn(`git ${arg}`, { shell: true });
@@ -87,14 +87,17 @@ const add = () => {
 };
 
 const commit = async message => {
-	if (!message) {
-		const answer = readlineSync.question('Type in your commit message: ');
-		// run(`commit -m "${answer}"`);
-		await asyncRun(`commit -m "${answer}"`);
-	} else {
-		// run(`commit -m "${message}"`);
-		await asyncRun(`commit -m "${message}"`);
-	}
+	return new Promise(async (resolve, _) => {
+		if (!message) {
+			const answer = readlineSync.question(
+				'Type in your commit message: '
+			);
+			await asyncRun(`commit -m "${answer}"`);
+		} else {
+			await asyncRun(`commit -m "${message}"`);
+		}
+		return resolve(true);
+	});
 };
 
 const branch = name => {
@@ -193,22 +196,25 @@ const pruneLocal = (force = false, remote) => {
 		);
 };
 
-const newBranch = remote => {
+const newBranch = async () => {
 	const b_name = readlineSync.question(
 		'Type in the name of the branch you want to make: '
 	);
 	branch(b_name);
 	if (getIfChanged()) {
 		add();
-		commit();
+		await commit();
+		console.log('Await in new branch.');
 	}
 };
-const normalPush = (remote, b_name = null) => {
+const normalPush = async (remote, b_name = null) => {
 	if (getIfChanged()) {
 		add();
-		commit();
+		await commit();
+		console.log('Await in normal push.');
 	}
-	push(remote, b_name);
+	await push(remote, b_name);
+	console.log('Await in normal push.');
 };
 
 module.exports = {
