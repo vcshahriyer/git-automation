@@ -28,7 +28,7 @@ const { clear, debug, force, branch, backTo } = flags;
 				automate.pruneLocal(force, remote);
 				break;
 			case 'nb':
-				automate.newBranchPushPR(remote);
+				automate.newBranch(remote);
 				break;
 			case 'p':
 				automate.normalPush(remote, branch || null);

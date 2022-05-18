@@ -10,7 +10,7 @@ const run = arg => {
 		return err;
 	}
 };
-const asyncRun = arg => {
+const asyncRun = async arg => {
 	return new Promise((resolve, reject) => {
 		try {
 			const exc = spawn(`git ${arg}`, { shell: true });
@@ -22,7 +22,7 @@ const asyncRun = arg => {
 					chalk.bgRedBright.hex('#000').bold(`Error: ${code}`)
 				);
 			});
-			exc.on('close', code => {
+			exc.on('exit', code => {
 				resolve(true);
 			});
 		} catch (err) {
@@ -176,7 +176,7 @@ const pruneRemote = (force = false, remote) => {
 	}
 };
 
-const pruneLocal = async (force = false, remote) => {
+const pruneLocal = (force = false, remote) => {
 	localBranches = getAllLocalBranchName();
 	remoteBranches = getAllRemoteBranchName(remote);
 	let dirty = false;
@@ -193,7 +193,7 @@ const pruneLocal = async (force = false, remote) => {
 		);
 };
 
-const newBranchPushPR = remote => {
+const newBranch = remote => {
 	const b_name = readlineSync.question(
 		'Type in the name of the branch you want to make: '
 	);
@@ -213,7 +213,7 @@ const normalPush = (remote, b_name = null) => {
 
 module.exports = {
 	pruneRemote,
-	newBranchPushPR,
+	newBranch,
 	pruneLocal,
 	normalPush,
 	pullRequest,
