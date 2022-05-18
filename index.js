@@ -29,12 +29,15 @@ const { clear, debug, force, branch, backTo } = flags;
 				break;
 			case 'nb':
 				automate.newBranch(remote);
+				console.log('New branch');
 				break;
 			case 'p':
 				automate.normalPush(remote, branch || null);
+				console.log('From push');
 				break;
 			case 'pr':
 				automate.pullRequest(branch || null);
+				console.log('From pr');
 				break;
 			case 'pll':
 				automate.pull(remote, branch || null);
