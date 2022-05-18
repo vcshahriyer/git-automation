@@ -17,9 +17,15 @@ const input = cli.input;
 const flags = cli.flags;
 const { clear, debug, force, branch, backTo } = flags;
 
+function timeout(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 (async () => {
 	init({ clear });
-	input.forEach(async command => {
+
+	await input.reduce(async (memo, command) => {
+		await memo;
 		switch (command) {
 			case 'pnd':
 				automate.pruneRemote(force, remote);
@@ -29,10 +35,12 @@ const { clear, debug, force, branch, backTo } = flags;
 				break;
 			case 'nb':
 				await automate.newBranch(remote);
+				// await timeout(3000);
 				console.log('New branch');
 				break;
 			case 'p':
 				await automate.normalPush(remote, branch || null);
+				// await timeout(3000);
 				console.log('From push');
 				break;
 			case 'pr':
@@ -49,7 +57,8 @@ const { clear, debug, force, branch, backTo } = flags;
 				cli.showHelp(0);
 				break;
 		}
-	});
+	}, Promise.resolve());
+	console.log('Even Outside !');
 	backTo && automate.checkout(backTo);
 	debug && log(flags);
 })();
