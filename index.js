@@ -19,7 +19,7 @@ const { clear, debug, force, branch, backTo } = flags;
 
 (async () => {
 	init({ clear });
-	input.forEach(command => {
+	input.forEach(async command => {
 		switch (command) {
 			case 'pnd':
 				automate.pruneRemote(force, remote);
@@ -28,11 +28,11 @@ const { clear, debug, force, branch, backTo } = flags;
 				automate.pruneLocal(force, remote);
 				break;
 			case 'nb':
-				automate.newBranch(remote);
+				await automate.newBranch(remote);
 				console.log('New branch');
 				break;
 			case 'p':
-				automate.normalPush(remote, branch || null);
+				await automate.normalPush(remote, branch || null);
 				console.log('From push');
 				break;
 			case 'pr':
