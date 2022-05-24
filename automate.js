@@ -22,6 +22,9 @@ const asyncRun = arg => {
 					chalk.bgRedBright.hex('#000').bold(`Error: ${code}`)
 				);
 			});
+			exc.stderr.on('data', err => {
+				console.log(chalk.underline.bold(`${err}`));
+			});
 			exc.on('exit', code => {
 				resolve(true);
 			});
