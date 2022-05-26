@@ -19,7 +19,9 @@ const { clear, debug, force, branch, backTo } = flags;
 
 (async () => {
 	init({ clear });
-	input.forEach(command => {
+
+	await input.reduce(async (memo, command) => {
+		await memo;
 		switch (command) {
 			case 'pnd':
 				automate.pruneRemote(force, remote);
@@ -28,16 +30,16 @@ const { clear, debug, force, branch, backTo } = flags;
 				automate.pruneLocal(force, remote);
 				break;
 			case 'nb':
-				automate.newBranchPushPR(remote);
+				await automate.newBranch(remote);
 				break;
 			case 'p':
-				automate.normalPush(remote, branch || null);
+				await automate.normalPush(remote, branch || null);
 				break;
 			case 'pr':
 				automate.pullRequest(branch || null);
 				break;
 			case 'pll':
-				automate.pull(remote, branch || null);
+				await automate.pull(remote, branch || null);
 				break;
 			case 'help':
 				cli.showHelp(0);
@@ -46,7 +48,7 @@ const { clear, debug, force, branch, backTo } = flags;
 				cli.showHelp(0);
 				break;
 		}
-	});
+	}, Promise.resolve());
 	backTo && automate.checkout(backTo);
 	debug && log(flags);
 })();

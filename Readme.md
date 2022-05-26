@@ -6,8 +6,10 @@ This is a Node CLI tool to automate The boring stuff 🚀.
 
 ## Installation
 
+> Install it globally and use across repositories with ease
+
 ```
-npm i @shahriyer/autogit
+npm i -g @shahriyer/autogit
 ```
 
 ## Usage
@@ -18,8 +20,28 @@ $ autogit help
 
 ![Usage](/assets/usage.png)
 
+## **You can chain commands**
+
+```
+$ autogit nb p pr --backTo=main
+```
+
+![Usage](/assets/Demo.gif)
+
+This will Create new branch ➡️ push ➡️ Open a Pull request ➡️ Checkout to `main` branch
+
+## What's new in v.1.2.0!
+
+-   Async Output to the terminal🐚.
+-   Now you can ⛓️`chain` commands and flags🏳️.
+
 ## Upcoming
 
 > Upcoming feature plan and teasers :
 
-🔲 Stash related feature.
+🔲 GitHub api integration to create and update PR.
+
+🔲 Stash and checkout to expected branch.
+
+🔲 All local or Selected branch Pull form immediate parent & push
+(Updating branches for there dependent pull request).
