@@ -26,6 +26,8 @@ $ autogit help
 $ autogit nb p pr --backTo=main
 ```
 
+![Usage](/assets/Demo.gif)
+
 This will Create new branch ➡️ push ➡️ Open a Pull request ➡️ Checkout to `main` branch
 
 ## What's new in v.1.2.0!
