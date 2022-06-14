@@ -10,7 +10,7 @@
 const init = require('./utils/init');
 const cli = require('./utils/cli');
 const log = require('./utils/log');
-const automate = require('./automate');
+const automate = require('./utils/automate');
 
 const remote = 'origin';
 const input = cli.input;
